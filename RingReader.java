@@ -7,19 +7,21 @@ public class RingReader {
     this.nextSeq = startSeq;
 }
 
-int read(){
+ReadResult read(){
     // if(nextSeq < )
+    long missed = 0;
     long oldest = buffer.getOldestSeq();
     if(nextSeq < oldest){
+        missed = oldest - nextSeq;
         nextSeq = oldest;
     }
 
     long write = buffer.getWriteSeq();
     if(nextSeq >= write){
-        return -1;
+        return new ReadResult(false, 0, missed);
     }
     int value = buffer.getValueAt(nextSeq);
     nextSeq++;
-    return value;
+    return new ReadResult(true, value, missed);
 }
 }

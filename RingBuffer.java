@@ -43,6 +43,11 @@ public class RingBuffer {
 
         RingReader r1 = buffer.createReader();
         RingReader r2 = buffer.createReader();
+        
+        ReadResult result = r1.read();
+        if (result.hasValue()) {
+        System.out.println(result.value());
+        }
 
         buffer.write(1);
         buffer.write(2);
@@ -62,5 +67,6 @@ public class RingBuffer {
         System.out.println("r2: " + r2.read());
         // System.out.println("r2: " + r2.read());
 
+        
     }
 }
