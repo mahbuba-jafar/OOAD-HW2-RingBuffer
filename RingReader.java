@@ -17,11 +17,12 @@ ReadResult read(){
     }
 
     long write = buffer.getWriteSeq();
-    if(nextSeq >= write){
-        return new ReadResult(false, 0, missed);
+
+    if (nextSeq >= write) {
+    return ReadResult.empty(missed);
     }
     int value = buffer.getValueAt(nextSeq);
     nextSeq++;
-    return new ReadResult(true, value, missed);
+    return ReadResult.of(value, missed);
 }
 }

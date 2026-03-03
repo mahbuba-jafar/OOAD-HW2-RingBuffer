@@ -1,31 +1,43 @@
-public class ReadResult {
-    private boolean hasValue;
-    private int value;
-    private long missedCount;
+public final class ReadResult {
 
-    public ReadResult(boolean hasValue, int value, long missedCount){
+    private final boolean hasValue;
+    private final int value;
+    private final long missedCount;
 
+    private ReadResult(boolean hasValue, int value, long missedCount) {
         this.hasValue = hasValue;
         this.value = value;
         this.missedCount = missedCount;
     }
 
-    public boolean hasValue(){
+    public static ReadResult empty(long missedCount) {
+        return new ReadResult(false, 0, missedCount);
+    }
+
+    public static ReadResult of(int value, long missedCount) {
+        return new ReadResult(true, value, missedCount);
+    }
+
+    public boolean hasValue() {
         return hasValue;
     }
 
-    public int value(){
+    public int value() {
+        if (!hasValue) {
+            throw new IllegalStateException("No value available. Call hasValue() first.");
+        }
         return value;
     }
 
-     public long missedCount(){
+    public long missedCount() {
         return missedCount;
     }
 
     @Override
-public String toString() {
-    return "ReadResult{hasValue=" + hasValue +
-            ", value=" + value +
-            ", missedCount=" + missedCount + "}";
-}
+    public String toString() {
+        if (!hasValue) {
+            return "ReadResult{hasValue=false, missedCount=" + missedCount + "}";
+        }
+        return "ReadResult{hasValue=true, value=" + value + ", missedCount=" + missedCount + "}";
+    }
 }
