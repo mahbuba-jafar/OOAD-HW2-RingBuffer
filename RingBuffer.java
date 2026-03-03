@@ -12,13 +12,13 @@ public class RingBuffer {
 
     }
 
-    RingReader createReader(){
+    public RingReader createReader(){
 
     long startSeq = Math.max(0, writSeq - capacity);
     return new RingReader(this, startSeq);
     }
 
-    void write(int value){
+    public void write(int value){
    
         int index;
         index = (int)(writSeq % capacity);
@@ -35,7 +35,7 @@ public class RingBuffer {
     }
 
     int getValueAt(long seq){
-        int index = (int) seq % capacity;
+        int index = (int) (seq % capacity);
         return storage[index];
     }
     

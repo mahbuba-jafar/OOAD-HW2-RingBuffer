@@ -7,7 +7,7 @@ public class RingReader {
     this.nextSeq = startSeq;
 }
 
-ReadResult read(){
+public ReadResult read(){
     // if(nextSeq < )
     long missed = 0;
     long oldest = buffer.getOldestSeq();
