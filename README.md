@@ -17,6 +17,8 @@ The solution is designed using proper object-oriented principles with clear sepa
 
 The implementation consists of three main classes:
 
+---
+
 ### RingBuffer
 
 **Responsibility:**
@@ -32,7 +34,11 @@ The implementation consists of three main classes:
 * `storage[]` – internal array storing values
 * `writeSeq` – total number of values written
 
-When the buffer becomes full, new values overwrite the oldest values using modulo indexing.
+When the buffer becomes full, new values overwrite the oldest values using modulo indexing:
+
+```
+index = writeSeq % capacity
+```
 
 ---
 
@@ -89,7 +95,7 @@ The oldest available sequence becomes:
 oldestSeq = writeSeq - capacity
 ```
 
-If a reader’s `nextSeq` is less than `oldestSeq`, the reader has missed items.
+If a reader’s `nextSeq` is less than `oldestSeq`, the reader has missed items and will skip forward.
 
 ---
 
@@ -112,12 +118,32 @@ If a reader has not read any values before these writes:
 
 ---
 
+## UML Class Diagram
+
+![alt text](image.png)
+---
+
+## UML Sequence Diagram – write()
+
+![alt text](image-1.png)
+
+---
+
+## UML Sequence Diagram – read()
+
+![alt text](image-2.png)
+
+---
+
 ## How to Run
 
-Run the `RingBufferDemo` class to see:
+1. Open the project in your IDE.
+2. Run the `RingBufferDemo` class.
+3. The demo includes:
 
-* Normal reading with multiple readers
-* A slow reader missing items due to overwriting
+   * Empty read test
+   * Independent multiple readers test
+   * Overwrite and missed items test
 
 ---
 
@@ -127,3 +153,5 @@ Run the `RingBufferDemo` class to see:
 * Encapsulation of internal state
 * Independent reader behavior
 * Clean class structure without combining all logic in one class
+* Use of a value object (`ReadResult`) instead of primitive return codes
+
