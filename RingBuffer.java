@@ -38,35 +38,5 @@ public class RingBuffer {
         int index = (int) seq % capacity;
         return storage[index];
     }
-    public static void main(String[] args) {
-        RingBuffer buffer = new RingBuffer(3);
-
-        RingReader r1 = buffer.createReader();
-        RingReader r2 = buffer.createReader();
-        
-        ReadResult result = r1.read();
-        if (result.hasValue()) {
-        System.out.println(result.value());
-        }
-
-        buffer.write(1);
-        buffer.write(2);
-        buffer.write(3);
-
-        System.out.println("r1: " + r1.read());
-        System.out.println("r1: " + r1.read());
-        System.out.println("r1: " + r1.read());
-
-        System.out.println("r2: " + r2.read());
-        System.out.println("r2: " + r2.read() + "\n");
-
-        buffer.write(4);
-
-        System.out.println("r1: " + r1.read());
-        System.out.println("r1: " + r1.read());
-        System.out.println("r2: " + r2.read());
-        // System.out.println("r2: " + r2.read());
-
-        
-    }
+    
 }
